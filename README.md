@@ -1,9 +1,22 @@
 # Pocket Home
 
 Landing page for **Pocket Home** — a design and build studio in Chennai working on
-compact plots. Live at **<https://pockethome.nichekala.in>**.
+compact plots.
 
-A single static page: no framework, no build step, no dependencies.
+A single static page: no framework, no build step, no dependencies. The repository
+root *is* the site.
+
+| | |
+|---|---|
+| **Review build** | <https://arnikhilrodrigo.github.io/pockethome-site/> |
+| **Target domain** | `pockethome.nichekala.in` — **not yet pointed here** |
+| **Deploying it** | **see [DEPLOY.md](DEPLOY.md) first** |
+
+> **Note for whoever deploys this.** `pockethome.nichekala.in` currently resolves to
+> Firebase and is serving an **older build** of this page. This is a replacement.
+> Before deploying to Firebase, check which plan that project is on — the free tier
+> allows 360 MB/day and this site carries ~31 MB of renders and brochures.
+> [DEPLOY.md](DEPLOY.md) has the numbers and both deployment routes.
 
 ## Running it locally
 
@@ -64,18 +77,8 @@ both driven from that map.
 
 ## Deploying
 
-GitHub Pages builds from `main`, repository root. Push and it rebuilds in about a
-minute:
-
-```bash
-gh api repos/arnikhilrodrigo/pockethome-site/pages/builds/latest
-```
-
-On this machine plain `git push` has no credential helper — use the `gh` one:
-
-```bash
-git -c credential.helper= -c '!gh auth git-credential' push origin main
-```
+See **[DEPLOY.md](DEPLOY.md)** — it covers both Firebase and GitHub Pages, the
+DNS change, and the quota warning that decides between them.
 
 ## Still to do
 
