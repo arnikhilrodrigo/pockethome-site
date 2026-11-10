@@ -1,0 +1,877 @@
+/* ===========================================================================
+   Pocket Home — v2 brand layer
+   Loaded after the page's inline <style>, so equal-specificity rules win.
+   Everything here is additive: delete this file and the page reverts.
+
+   STEP 1 — brand foundation only.
+   Adopts the real Pocket Home system defined by Know Your Home:
+   Fraunces (display) + Manrope (text) + Caveat (hand), red #D2352A,
+   warm paper instead of stark white. Layout and copy untouched.
+   =========================================================================== */
+
+body.ph {
+  /* ---- palette (from knowyourhome.nichekala.in) ---- */
+  --red:        #D2352A;
+  --red-deep:   #A8261D;
+  --red-soft:   #E8574D;
+  --pink:       #FCEBE8;
+  --pink-2:     #F7D6D1;
+  --blush:      #FEF5F3;
+  --amber:      #C7811B;
+  --amber-2:    #FBF0DC;
+  --ok:         #2F7D5B;
+  --rule:       #ECE7E5;
+
+  /* ---- remap the page's existing tokens onto the brand ---- */
+  --background: #F4F1EE;   /* warm paper, was stark white  */
+  --foreground: #151312;
+  --ink:        #151312;
+  --ink-soft:   #56504D;
+  --ink-faint:  #8C8784;
+  --sand:       #ECE7E5;
+
+  --card:       #FFFFFF;
+  --popover:    #FFFFFF;
+  --card-foreground: #151312;
+  --popover-foreground: #151312;
+
+  --primary:    #151312;
+  --primary-foreground: #FFFFFF;
+  --secondary:  #ECE7E5;
+  --secondary-foreground: #151312;
+  --muted:      #ECE7E5;
+  --muted-foreground: #56504D;
+  --accent:     #FCEBE8;
+  --accent-foreground: #151312;
+
+  --border:     rgba(21,19,18,.11);
+  --input:      rgba(21,19,18,.18);
+  --ring:       var(--red);
+
+  /* the page calls its accent "clay" / "mustard" — point both at brand red */
+  --clay:       var(--red);
+  --clay-foreground: #FFFFFF;
+  --mustard:    var(--red);
+  --sage:       #151312;
+  --sky:        #ECE7E5;
+
+  --shadow-soft: 0 1px 2px rgba(21,19,18,.05), 0 16px 38px -24px rgba(21,19,18,.30);
+  --shadow-pop:  0 1px 2px rgba(21,19,18,.05), 0 18px 44px -22px rgba(210,53,42,.45);
+
+  /* ---- type ---- */
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-sans:    "Manrope", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-hand:    "Caveat", "Segoe Script", cursive;
+
+  background: var(--background);
+  color: var(--ink);
+  font-family: var(--font-sans);
+}
+
+/* --------------------------------------------------------------------------
+   Display type — Fraunces is a serif, so the Inter-era weights are far too
+   heavy. Dropping to 400/500 is what gives it the editorial feel.
+   -------------------------------------------------------------------------- */
+body.ph h1 { font-weight: 400; letter-spacing: -.028em; }
+body.ph h2 { font-weight: 400; letter-spacing: -.024em; line-height: 1.04; }
+body.ph h3 { font-weight: 500; letter-spacing: -.018em; }
+
+/* the accent word: Fraunces italic in brand red (replaces Instrument Serif) */
+body.ph h1 em,
+body.ph h2 .text-clay,
+body.ph .ph-kyh-title span {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -.02em;
+  color: var(--red);
+}
+
+/* numerals and stats read better with a little more weight in Fraunces */
+body.ph .text-4xl.text-clay { font-weight: 500; letter-spacing: -.03em; }
+body.ph .ph-stat-v         { font-weight: 400; letter-spacing: -.03em; }
+
+/* these two never carried .font-display — they inherited the body face, which
+   went unnoticed while everything was Inter. They are display type, so name
+   the family explicitly. */
+body.ph .ph-kyh-title,
+body.ph .ph-lb-name {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -.028em;
+}
+body.ph .ph-lb-name { font-weight: 500; }
+
+/* eyebrows / UI chrome stay in Manrope */
+body.ph .label-eyebrow,
+body.ph .ph-eyebrow,
+body.ph .ph-stat-l,
+body.ph .ph-lb-meta,
+body.ph .ph-kyh-eyebrow { font-family: var(--font-sans); }
+
+/* --------------------------------------------------------------------------
+   Surfaces — warm paper base, lighter alternating panels, white cards
+   -------------------------------------------------------------------------- */
+body.ph .pop-bg { background: #FBF9F7; }
+
+/* --------------------------------------------------------------------------
+   Drafting grid — the page was reading flat. A studio that draws for a living
+   should sit on graph paper, not blank paper.
+
+   The transparent sections let the body grid show through; .pop-bg paints its
+   own background, so it needs its own layer. The inline stylesheet kills those
+   pseudo-elements with !important, hence the explicit revival below.
+   -------------------------------------------------------------------------- */
+body.ph {
+  background-image:
+    linear-gradient(to right,  rgba(21,19,18,.085) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(21,19,18,.085) 1px, transparent 1px),
+    linear-gradient(to right,  rgba(210,53,42,.16)  1px, transparent 1px),
+    linear-gradient(to bottom, rgba(210,53,42,.16)  1px, transparent 1px);
+  background-size: 38px 38px, 38px 38px, 190px 190px, 190px 190px;
+  background-position: center top;
+  background-attachment: fixed;
+}
+
+body.ph .pop-bg::before {
+  display: block !important;
+  content: "" !important;
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-image:
+    linear-gradient(to right,  rgba(21,19,18,.075) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(21,19,18,.075) 1px, transparent 1px),
+    radial-gradient(rgba(210,53,42,.3) 1.4px, transparent 1.4px);
+  background-size: 38px 38px, 38px 38px, 190px 190px;
+  background-position: center top, center top, 18px 18px;
+  filter: none;
+  /* ease the texture off at the edges so copy never fights it */
+  -webkit-mask-image: radial-gradient(ellipse 100% 92% at 50% 45%, #000 55%, transparent 97%);
+  mask-image: radial-gradient(ellipse 100% 92% at 50% 45%, #000 55%, transparent 97%);
+}
+
+body.ph .ph-hero      { background: var(--ink); }
+body.ph .ph-hero-media{ background: #221F1D; }
+
+/* icon tiles pick up the brand blush instead of neutral grey */
+body.ph .ph-tile { background: var(--pink) !important; border-color: rgba(210,53,42,.14); }
+body.ph .ph-ticon { color: var(--red); }
+
+/* lightbox follows the same ink */
+body.ph .ph-lb { background: rgba(21,19,18,.965); }
+
+
+/* ===========================================================================
+   STEP 2 — the hero
+   Keeps the black panel, rings and split layout; borrows KYH's floating pill
+   nav, eyebrow chip and Caveat hand accent.
+   =========================================================================== */
+
+/* ---- floating pill nav (was a full-width blurred bar) ---- */
+body.ph header.fixed {
+  background: transparent !important;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom: 0;
+  padding: .85rem 1rem;
+}
+body.ph header.fixed > div {
+  max-width: 68rem;
+  padding: .55rem .6rem .55rem 1.35rem;
+  border-radius: 999px;
+  background: rgba(255,255,255,.93);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(21,19,18,.07);
+  box-shadow: 0 1px 2px rgba(21,19,18,.05), 0 14px 34px -20px rgba(21,19,18,.42);
+}
+/* the CTA sits inside the pill now, so it needs a touch less height */
+body.ph header.fixed a[href="#book"] {
+  padding: .62rem 1.15rem;
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: -.005em;
+  box-shadow: none;
+}
+body.ph .ph-logo { font-size: 1.3rem; }
+
+/* ---- eyebrow becomes a chip with a live red dot ---- */
+body.ph .ph-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: .55rem;
+  padding: .45rem 1.05rem .45rem .85rem;
+  border: 1px solid rgba(255,255,255,.22);
+  border-radius: 999px;
+  background: rgba(255,255,255,.04);
+  font-size: .66rem;
+  font-weight: 700;
+  letter-spacing: .18em;
+  color: rgba(255,255,255,.82);
+}
+body.ph .ph-eyebrow::before {
+  content: "";
+  flex: none;
+  width: .42rem;
+  height: .42rem;
+  border-radius: 50%;
+  background: var(--red-soft);
+  box-shadow: 0 0 0 3px rgba(232,87,77,.22);
+}
+
+/* ---- handwritten accent (Caveat, amber) ---- */
+body.ph .ph-hand {
+  display: block;
+  margin-top: 1.5rem;
+  font-family: var(--font-hand);
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--amber);
+  transform: rotate(-1.2deg);
+  transform-origin: left center;
+}
+
+/* ---- hero rhythm ---- */
+body.ph .ph-hero h1    { margin-top: 1.15rem; }
+body.ph .ph-hero-lead  { color: rgba(255,255,255,.74); }
+body.ph .ph-hero-media { border-radius: 26px; }
+body.ph .ph-hero-stats { border-top-color: rgba(255,255,255,.16); }
+
+/* ---- highlighter swash (KYH's marker) ----
+   z-index:0 on the span makes it a stacking context, so the -1 pseudo sits
+   behind its own text but still above the section background. Without that the
+   swash can vanish under an ancestor's background. */
+/* Painted as the span's own background rather than with absolutely-positioned
+   pseudo-elements. When a highlighted phrase wrapped across two lines, those
+   pseudos were laid out against the inline box as a whole and left a stray
+   blob under the break. A background repeats per line fragment, so wrapping
+   just works — box-decoration-break makes each fragment carry its own. */
+body.ph .ph-mark {
+  display: inline;
+  padding: .06em .14em;
+  border-radius: .25em;
+  background-image: linear-gradient(100deg,
+      rgba(255,214,51,0)    0%,
+      #FFD633               3%,
+      #FFC800              48%,
+      #FFD633              95%,
+      rgba(255,214,51,.45) 100%);
+  background-repeat: no-repeat;
+  background-size: 100% .92em;
+  background-position: 0 86%;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* the practice name, called out in body copy */
+body.ph .ph-strong {
+  font-weight: 700;
+  color: var(--ink);
+  box-shadow: inset 0 -.42em 0 var(--pink);
+}
+
+
+/* ===========================================================================
+   STEP 4 — the portfolio
+   Thuli leads as a featured, full-width project. On a page that has to win
+   trust, the smallest plot in the book is the most persuasive thing on it.
+   =========================================================================== */
+
+body.ph .ph-featured-note { display: none; }   /* only shown in featured layout */
+body.ph .ph-sep           { display: none; }   /* the br does the work until lg  */
+
+body.ph .ph-badge {
+  position: absolute;
+  left: .85rem;
+  top: .85rem;
+  display: inline-block;
+  padding: .4rem .9rem;
+  border-radius: 999px;
+  background: var(--ink);
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: .62rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+@media (min-width: 1024px) {
+  body.ph #work .grid > .ph-featured {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 2.5rem;
+    align-items: center;
+    margin-bottom: 1.25rem;
+    padding: 1.15rem;
+    border: 1px solid var(--border);
+    border-radius: 34px;
+    background: var(--card);
+    box-shadow: var(--shadow-soft);
+  }
+  body.ph #work .grid > .ph-featured > div:first-child { aspect-ratio: 16 / 10; }
+
+  /* the meta row becomes a stacked block with room to say something */
+  body.ph #work .grid > .ph-featured > div:last-child {
+    display: block;
+    border-top: 0;
+    padding: 0 1.25rem 0 .25rem;
+    margin-top: 0;
+  }
+  body.ph #work .grid > .ph-featured h3 {
+    font-size: clamp(2.2rem, 3.4vw, 3.1rem);
+    font-weight: 400;
+    line-height: 1.02;
+    white-space: normal;
+    overflow: visible;
+  }
+  body.ph #work .grid > .ph-featured > div:last-child > span {
+    display: block;
+    margin-top: .7rem;
+    text-align: left;
+    font-size: .78rem;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  /* size and type sit on one line in the featured layout, stacked elsewhere */
+  body.ph .ph-featured .ph-br  { display: none; }
+  body.ph .ph-featured .ph-sep { display: inline; }
+
+  body.ph .ph-featured .ph-featured-note {
+    display: block;
+    margin-top: 1.15rem;
+    max-width: 34ch;
+    font-size: .95rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+}
+
+
+/* ===========================================================================
+   STEP 5 — the Know Your Home bridge
+   Echoes the app's own headline and report card so the two pages read as one
+   practice rather than a page with a banner on it.
+   =========================================================================== */
+
+body.ph .ph-kyh-hand {
+  display: block;
+  margin-bottom: .9rem;
+  font-family: var(--font-hand);
+  font-size: 1.4rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--amber);
+  transform: rotate(-1deg);
+  transform-origin: left center;
+}
+
+/* the headline is now a sentence, so it needs room and a softer scale */
+body.ph .ph-kyh-title {
+  font-size: clamp(1.9rem, 3.4vw, 2.85rem);
+  line-height: 1.04;
+  max-width: 18ch;
+}
+
+body.ph .ph-kyh-lead { max-width: 54ch; }
+
+/* contents of the report, not feature chips */
+body.ph .ph-kyh-list {
+  margin-top: 1.7rem;
+  display: grid;
+  gap: .1rem .5rem;
+}
+@media (min-width: 620px) {
+  body.ph .ph-kyh-list { grid-template-columns: 1fr 1fr; gap: .1rem 2rem; }
+}
+body.ph .ph-kyh-list li {
+  display: block;
+  padding: .72rem 0;
+  border: 0;
+  border-top: 1px solid rgba(255,255,255,.12);
+  background: none;
+  border-radius: 0;
+}
+body.ph .ph-kyh-list li b {
+  position: relative;
+  display: block;
+  padding-left: 1rem;
+  font-size: .9rem;
+  font-weight: 600;
+  color: #fff;
+}
+body.ph .ph-kyh-list li b::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .52em;
+  width: .42rem;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--red-soft);
+}
+body.ph .ph-kyh-list li span {
+  display: block;
+  padding-left: 1rem;
+  margin-top: .2rem;
+  font-size: .78rem;
+  line-height: 1.45;
+  color: rgba(255,255,255,.55);
+}
+
+/* the deliverable, shown as a little sheet */
+body.ph .ph-kyh-sheet {
+  display: block;
+  width: 100%;
+  padding: 1.1rem 1.25rem;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 18px;
+  background: rgba(255,255,255,.05);
+  text-align: left;
+}
+body.ph .ph-kyh-sheet-lbl {
+  display: block;
+  font-size: .62rem;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.5);
+}
+body.ph .ph-kyh-sheet strong {
+  display: block;
+  margin-top: .45rem;
+  font-family: var(--font-display);
+  font-size: 1.32rem;
+  font-weight: 400;
+  letter-spacing: -.02em;
+  color: #fff;
+}
+body.ph .ph-kyh-sheet-meta {
+  display: block;
+  margin-top: .3rem;
+  font-size: .76rem;
+  color: var(--amber);
+}
+
+body.ph .ph-kyh-side { gap: .85rem; }
+body.ph .ph-kyh-btn svg { height: 1.1rem; width: 1.1rem; }
+
+
+/* ===========================================================================
+   STEP 6 — polish
+   Arcs and plan markers are part of the Pocket Home vocabulary, so they are
+   used where they mean something rather than sprinkled around.
+   =========================================================================== */
+
+/* ---- an arc swung around each section numeral (the brand signature, ×7) ---- */
+body.ph .text-4xl.text-clay {
+  position: relative;
+  isolation: isolate;
+}
+body.ph .text-4xl.text-clay::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: -.34em;
+  top: -.26em;
+  width: 1.52em;
+  height: 1.52em;
+  border: 1.5px solid var(--pink-2);
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  transform: rotate(-42deg);
+  pointer-events: none;
+}
+
+/* ---- the plot-size bars read as dimension lines, with end ticks ---- */
+body.ph .h-2.rounded-full.bg-muted {
+  position: relative;
+  overflow: visible;
+}
+body.ph .h-2.rounded-full.bg-muted::before,
+body.ph .h-2.rounded-full.bg-muted::after {
+  content: "";
+  position: absolute;
+  top: -.34rem;
+  width: 1.5px;
+  height: 1.18rem;
+  background: var(--ink-faint);
+  opacity: .5;
+}
+body.ph .h-2.rounded-full.bg-muted::before { left: 0; }
+body.ph .h-2.rounded-full.bg-muted::after  { right: 0; }
+
+/* ---- reveals stagger across a row instead of landing all at once ---- */
+body.ph .grid > .reveal:nth-child(2) { transition-delay: .07s; }
+body.ph .grid > .reveal:nth-child(3) { transition-delay: .14s; }
+body.ph .grid > .reveal:nth-child(4) { transition-delay: .04s; }
+body.ph .grid > .reveal:nth-child(5) { transition-delay: .11s; }
+body.ph .grid > .reveal:nth-child(6) { transition-delay: .18s; }
+
+/* ---- project cards lift on hover, the image still pushes in behind ---- */
+body.ph #work .grid > button {
+  transition: transform .38s cubic-bezier(.2,.7,.2,1);
+}
+body.ph #work .grid > button:hover { transform: translateY(-5px); }
+body.ph #work .grid > button:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 6px;
+  border-radius: 34px;
+}
+
+/* the arrow chip warms up with the card */
+body.ph #work .grid > button .absolute.right-3 {
+  transition: background .25s, color .25s;
+}
+body.ph #work .grid > button:hover .absolute.right-3 {
+  background: var(--red);
+  color: #fff;
+}
+
+/* ---- buttons settle rather than snap ---- */
+body.ph .ph-btn-light,
+body.ph .ph-kyh-btn,
+body.ph header.fixed a[href="#book"] {
+  transition: transform .2s cubic-bezier(.2,.7,.2,1), background .2s, box-shadow .2s;
+}
+body.ph .ph-btn-light:hover,
+body.ph header.fixed a[href="#book"]:hover { transform: translateY(-2px); }
+
+/* The four lifestyle cards in section 02 ask for a 4-up row, but the page ships
+   a compiled Tailwind build that only contains the classes the original source
+   used — lg:grid-cols-4 was never among them, so the utility is inert. */
+@media (min-width: 1024px) {
+  body.ph [class*="lg:grid-cols-4"] {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* ===========================================================================
+   The Eight Essentials
+   Laid out like the brochure spread — numbered, two columns, a red tick on
+   each — with the icon tiles the KYH app uses for its report contents.
+   =========================================================================== */
+
+body.ph .ph-ess {
+  margin: 2.75rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0;
+  counter-reset: ess;
+}
+@media (min-width: 760px) {
+  body.ph .ph-ess { grid-template-columns: 1fr 1fr; column-gap: 3.25rem; }
+}
+
+body.ph .ph-ess li {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas: "ico num" "ico body";
+  column-gap: 1.1rem;
+  align-content: start;
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--border);
+}
+/* the first row of each column shouldn't double up on rules */
+@media (min-width: 760px) {
+  body.ph .ph-ess li:nth-child(1),
+  body.ph .ph-ess li:nth-child(2) { border-top: 0; padding-top: .5rem; }
+}
+@media (max-width: 759px) {
+  body.ph .ph-ess li:first-child { border-top: 0; padding-top: .5rem; }
+}
+
+body.ph .ph-ess-ico {
+  grid-area: ico;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 13px;
+  background: var(--pink);
+  border: 1px solid rgba(210,53,42,.16);
+  color: var(--red);
+  transition: background .25s, transform .25s cubic-bezier(.2,.7,.2,1);
+}
+body.ph .ph-ess-svg { width: 1.3rem; height: 1.3rem; }
+
+body.ph .ph-ess li:hover .ph-ess-ico {
+  background: var(--red);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+body.ph .ph-ess-n {
+  grid-area: num;
+  font-family: var(--font-sans);
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .16em;
+  color: var(--red);
+}
+body.ph .ph-ess li h3 {
+  grid-area: body;
+  margin: .1rem 0 0;
+  font-size: 1.32rem;
+  font-weight: 500;
+  letter-spacing: -.02em;
+  color: var(--ink);
+}
+body.ph .ph-ess li p {
+  grid-area: body;
+  margin: 2.15rem 0 0;          /* sits under the h3 inside the same area */
+  max-width: 38ch;
+  font-size: .9rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+/* the brochure's sign-off, set like a pull quote */
+body.ph .ph-ess-foot {
+  margin: 3rem 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: -.025em;
+  color: var(--ink);
+}
+body.ph .ph-ess-foot::before {
+  content: "";
+  display: block;
+  width: 3rem;
+  height: 2px;
+  margin-bottom: 1.1rem;
+  background: var(--red);
+}
+
+/* ===========================================================================
+   The surprise — project brochures
+   =========================================================================== */
+
+/* badge on the cards that carry one */
+body.ph .ph-gift {
+  position: absolute;
+  left: .85rem;
+  bottom: .85rem;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  padding: .45rem .9rem .45rem .7rem;
+  border-radius: 999px;
+  background: var(--amber);
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: .62rem;
+  font-weight: 700;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  box-shadow: 0 8px 22px -10px rgba(199,129,27,.9);
+}
+body.ph .ph-gift svg { width: .95rem; height: .95rem; }
+body.ph #work .grid > button:hover .ph-gift { background: var(--red); }
+
+/* the block inside the lightbox */
+body.ph .ph-gift-card {
+  margin: 2.2rem auto 0;
+  max-width: 34rem;
+  padding: 1.4rem 1.5rem 1.5rem;
+  border: 1px solid rgba(255,255,255,.17);
+  border-radius: 22px;
+  background: rgba(255,255,255,.055);
+  text-align: left;
+}
+body.ph .ph-gift-hand {
+  display: block;
+  margin-bottom: .75rem;
+  font-family: var(--font-hand);
+  font-size: 1.3rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--amber);
+  transform: rotate(-1deg);
+  transform-origin: left center;
+}
+body.ph .ph-gift-row { display: flex; gap: 1rem; align-items: flex-start; }
+body.ph .ph-gift-ico {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 2.9rem;
+  height: 2.9rem;
+  border-radius: 15px;
+  background: rgba(199,129,27,.2);
+  color: var(--amber);
+}
+body.ph .ph-gift-ico svg { width: 1.5rem; height: 1.5rem; }
+body.ph .ph-gift-copy strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.22rem;
+  font-weight: 400;
+  letter-spacing: -.02em;
+  color: #fff;
+}
+body.ph .ph-gift-copy span {
+  display: block;
+  margin-top: .3rem;
+  font-size: .84rem;
+  line-height: 1.55;
+  color: rgba(255,255,255,.62);
+}
+body.ph .ph-gift-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .6rem;
+  margin-top: 1.15rem;
+  padding: .95rem 1.3rem;
+  border-radius: 999px;
+  background: var(--amber);
+  color: #fff;
+  font-size: .92rem;
+  font-weight: 700;
+  letter-spacing: -.01em;
+  transition: background .2s, transform .2s;
+}
+body.ph .ph-gift-btn em {
+  font-style: normal;
+  font-weight: 500;
+  opacity: .72;
+  font-size: .8rem;
+}
+body.ph .ph-gift-btn svg { width: 1.1rem; height: 1.1rem; }
+body.ph .ph-gift-btn:hover { background: #d9901f; transform: translateY(-2px); }
+
+
+/* ===========================================================================
+   Data, set like data — section 03
+   =========================================================================== */
+
+body.ph .ph-ess-sec ~ section .h-2,
+body.ph section .h-2.rounded-full.bg-muted { height: .62rem; border-radius: 999px; }
+
+/* the plot-size figures carry the argument, so give them real scale */
+body.ph .font-display.mt-2.text-3xl {
+  font-size: clamp(2.6rem, 5.6vw, 4.2rem) !important;
+  font-weight: 500;
+  letter-spacing: -.045em;
+  line-height: .95;
+}
+body.ph .font-display.mt-2.text-3xl .text-base {
+  font-size: .9rem !important;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+/* the two stat cards sit side by side and read as one chart */
+@media (min-width: 820px) {
+  body.ph .reveal.mt-9.space-y-4 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+  body.ph .reveal.mt-9.space-y-4 > div { margin-top: 0 !important; }
+}
+body.ph .reveal.mt-9.space-y-4 > div {
+  position: relative;
+  overflow: hidden;
+  border-radius: 28px;
+  background:
+    linear-gradient(180deg, #fff 0%, #fff 72%, var(--blush) 100%);
+}
+/* the newer, smaller plots get the brand red and a tinted card */
+body.ph .reveal.mt-9.space-y-4 > div:last-child {
+  background: linear-gradient(180deg, #fff 0%, var(--pink) 190%);
+  border-color: rgba(210,53,42,.22);
+}
+
+/* ===========================================================================
+   Warmth — the hero caption and the handwritten asides
+   =========================================================================== */
+
+/* "On site right now" tag on the hero render */
+body.ph .ph-hero-media { position: relative; }
+body.ph .ph-cap {
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: .55rem;
+  max-width: calc(100% - 2rem);
+  padding: .6rem 1.05rem .6rem .9rem;
+  border-radius: 999px;
+  background: rgba(21,19,18,.74);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,.17);
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: .76rem;
+  font-weight: 600;
+  letter-spacing: -.005em;
+  line-height: 1.3;
+}
+body.ph .ph-cap-dot {
+  flex: none;
+  width: .5rem;
+  height: .5rem;
+  border-radius: 50%;
+  background: #58D07E;
+  box-shadow: 0 0 0 3px rgba(88,208,126,.26);
+  animation: ph-pulse 2.4s ease-in-out infinite;
+}
+@keyframes ph-pulse {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(88,208,126,.26); }
+  50%      { box-shadow: 0 0 0 6px rgba(88,208,126,.08); }
+}
+@media (max-width: 640px) {
+  body.ph .ph-cap { font-size: .7rem; left: .7rem; bottom: .7rem; }
+}
+
+/* handwritten asides on the light sections */
+body.ph .ph-hand-dark {
+  display: block;
+  margin: 1.6rem 0 -.4rem;
+  font-family: var(--font-hand);
+  font-size: 1.4rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--amber);
+  transform: rotate(-1.1deg);
+  transform-origin: left center;
+}
+
+/* ---- respect the system setting ---- */
+@media (prefers-reduced-motion: reduce) {
+  body.ph .reveal,
+  body.ph .grid > .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    transition-delay: 0s !important;
+  }
+  body.ph .ph-cap-dot { animation: none !important; }
+  body.ph #work .grid > button,
+  body.ph #work .grid > button:hover,
+  body.ph .ph-kyh,
+  body.ph .ph-kyh:hover,
+  body.ph .ph-btn-light:hover,
+  body.ph header.fixed a[href="#book"]:hover {
+    transform: none !important;
+    transition: none !important;
+  }
+  body.ph #work img { transition: none !important; }
+}
